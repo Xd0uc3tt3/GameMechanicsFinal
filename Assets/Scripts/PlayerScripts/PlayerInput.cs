@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class PlayerInput : MonoBehaviour
 
     public float moveSpeed = 5f;
     public float jumpForce = 5f;
+
+    private bool canRestart = true;
 
     private Rigidbody rb;
     private bool isGrounded = true;
@@ -36,10 +39,12 @@ public class PlayerInput : MonoBehaviour
 
     public void OnRestart(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (!context.started)
         {
-            playerScript.LoseLife();
+            return;
         }
+
+        playerScript.LoseLife();
     }
 
     private void Update()
@@ -57,4 +62,10 @@ public class PlayerInput : MonoBehaviour
             isGrounded = true;
         }
     }
+
+    private void LateUpdate()
+    {
+        canRestart = true;
+    }
+
 }

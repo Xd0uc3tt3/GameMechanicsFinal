@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class PlayerScript : MonoBehaviour
     public int lives = 3;
 
     private Rigidbody rb;
+    public bool isRespawning = false;
 
     void Start()
     {
@@ -33,6 +35,8 @@ public class PlayerScript : MonoBehaviour
                 rb.angularVelocity = Vector3.zero;
             }
         }
+
+        StartCoroutine(EndRespawnFrame());
     }
 
     private void OnTriggerEnter(Collider other)
@@ -51,8 +55,15 @@ public class PlayerScript : MonoBehaviour
 
     public void LoseLife()
     {
+        if (isRespawning)
+        {
+            return;
+        }
+
+        isRespawning = true;
+
         lives--;
-        Debug.Log("LoseLife called, lives now: " + lives);
+        Debug.Log("Lives: " + lives);
 
         if (lives > 0)
         {
@@ -62,6 +73,13 @@ public class PlayerScript : MonoBehaviour
         {
             lives = 0;
             Debug.Log("Game Over");
+            isRespawning = false;
         }
+    }
+
+    private IEnumerator EndRespawnFrame()
+    {
+        yield return new WaitForSeconds(0.5f);
+        isRespawning = false;
     }
 }
