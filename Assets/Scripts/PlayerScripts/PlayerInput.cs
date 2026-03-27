@@ -30,8 +30,14 @@ public class PlayerInput : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
+        if (playerScript.coins <= 0)
+        {
+            return;
+        }
+
         if (isGrounded)
         {
+            playerScript.coins--;
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
         }

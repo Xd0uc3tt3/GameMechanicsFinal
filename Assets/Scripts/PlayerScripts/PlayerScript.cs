@@ -67,6 +67,7 @@ public class PlayerScript : MonoBehaviour
 
         if (lives > 0)
         {
+            coins += 5;
             Respawn();
         }
         else
