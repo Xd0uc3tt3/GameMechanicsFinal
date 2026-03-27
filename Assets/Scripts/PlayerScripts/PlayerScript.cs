@@ -62,17 +62,13 @@ public class PlayerScript : MonoBehaviour
 
         isRespawning = true;
 
-        lives--;
-        Debug.Log("Lives: " + lives);
-
         if (lives > 0)
         {
-            coins += 5;
+            lives--;
             Respawn();
         }
         else
         {
-            lives = 0;
             Debug.Log("Game Over");
             isRespawning = false;
         }

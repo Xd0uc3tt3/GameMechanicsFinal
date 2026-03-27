@@ -54,6 +54,12 @@ public class PlayerInput : MonoBehaviour
             return;
         }
 
+        if (playerScript.lives <= 0 || playerScript.isRespawning)
+        {
+            return;
+        }
+
+        playerScript.coins += 5;
         playerScript.LoseLife();
     }
 
