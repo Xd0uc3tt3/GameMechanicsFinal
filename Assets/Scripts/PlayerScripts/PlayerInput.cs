@@ -20,6 +20,8 @@ public class PlayerInput : MonoBehaviour
     public PlayerScript playerScript;
     public Transform cameraPivot;
 
+    private ShopTrigger currentShopTrigger;
+
     public void Awake()
     {
         rb = Player.GetComponent<Rigidbody>();
@@ -55,6 +57,19 @@ public class PlayerInput : MonoBehaviour
         playerScript.LoseLife();
     }
 
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (!context.started)
+        {
+            return;
+        }
+
+        if (currentShopTrigger != null && currentShopTrigger.PlayerInRange)
+        {
+            currentShopTrigger.ToggleShop();
+        }
+    }
+
     void FixedUpdate()
     {
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -84,6 +99,16 @@ public class PlayerInput : MonoBehaviour
     private void LateUpdate()
     {
         canRestart = true;
+    }
+
+    public void SetShopTrigger(ShopTrigger trigger)
+    {
+        currentShopTrigger = trigger;
+    }
+
+    public void ClearShopTrigger()
+    {
+        currentShopTrigger = null;
     }
 
 }
