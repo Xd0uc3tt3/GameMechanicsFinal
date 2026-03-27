@@ -11,6 +11,8 @@ public class ShopTrigger : MonoBehaviour
 
     public bool PlayerInRange => playerInRange;
 
+    public Camera shopCamera;
+
     private void Start()
     {
         playerInput = FindObjectOfType<PlayerInput>();
@@ -33,6 +35,7 @@ public class ShopTrigger : MonoBehaviour
             playerInRange = false;
             shopUI.SetActive(false);
             interactPromptUI.SetActive(false);
+            shopCamera.gameObject.SetActive(false);
             playerInput.ClearShopTrigger();
         }
     }
@@ -41,6 +44,8 @@ public class ShopTrigger : MonoBehaviour
     {
         if (playerInRange)
         {
+            bool isOpen = !shopUI.activeSelf;
+            shopCamera.gameObject.SetActive(isOpen);
             shopUI.SetActive(!shopUI.activeSelf);
         }
     }
