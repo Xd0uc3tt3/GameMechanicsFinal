@@ -13,6 +13,8 @@ public class PlayerInput : MonoBehaviour
     private Rigidbody rb;
     private bool isGrounded = true;
 
+    public PlayerScript playerScript;
+
     public void Awake()
     {
         rb = Player.GetComponent<Rigidbody>();
@@ -29,6 +31,14 @@ public class PlayerInput : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
+        }
+    }
+
+    public void OnRestart(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            playerScript.LoseLife();
         }
     }
 
