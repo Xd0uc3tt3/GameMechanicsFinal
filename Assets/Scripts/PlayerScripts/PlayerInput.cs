@@ -59,7 +59,7 @@ public class PlayerInput : MonoBehaviour
             return;
         }
 
-        playerScript.coins += 5;
+        playerScript.coins += playerScript.RespawnCoinReward;
         playerScript.LoseLife();
     }
 

@@ -8,11 +8,14 @@ public class PlayerScript : MonoBehaviour
     public int coins = 0;
     public int lives = 3;
 
+    public int RespawnCoinReward;
+
     private Rigidbody rb;
     public bool isRespawning = false;
 
     void Start()
     {
+        RespawnCoinReward = coins;
         rb = GetComponent<Rigidbody>();
 
         if (spawnPoint != null)

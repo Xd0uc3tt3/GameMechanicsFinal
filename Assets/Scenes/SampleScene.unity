@@ -1676,10 +1676,10 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8674859839496997050}
-        m_TargetAssemblyTypeName: PlayerScript, Assembly-CSharp
-        m_MethodName: LoseLife
-        m_Mode: 1
+      - m_Target: {fileID: 7703507082674963822}
+        m_TargetAssemblyTypeName: PlayerInput, Assembly-CSharp
+        m_MethodName: OnRestart
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2264,8 +2264,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 88813129}
-  coins: 0
+  coins: 10
   lives: 3
+  RespawnCoinReward: 0
   isRespawning: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
