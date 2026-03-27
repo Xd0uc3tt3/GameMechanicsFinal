@@ -12,6 +12,8 @@ public class CameraScript : MonoBehaviour
     private float x = 0f;
     private float y = 0f;
 
+    private bool isLocked = true;
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -20,6 +22,13 @@ public class CameraScript : MonoBehaviour
         Vector3 angles = transform.eulerAngles;
         x = angles.y;
         y = angles.x;
+    }
+
+    public void SetCameraLocked(bool locked)
+    {
+        isLocked = locked;
+        Cursor.lockState = locked ? CursorLockMode.Locked : CursorLockMode.None;
+        Cursor.visible = !locked;
     }
 
     void LateUpdate()
