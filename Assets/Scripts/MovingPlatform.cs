@@ -7,15 +7,26 @@ public class MovingPlatform : MonoBehaviour
     public float speed = 2f;
 
     private Transform target;
+    private Vector3 lastPosition;
+    private Rigidbody playerRb;
 
     void Start()
     {
         target = pointB;
+        lastPosition = transform.position;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.fixedDeltaTime);
+
+        Vector3 delta = transform.position - lastPosition;
+        lastPosition = transform.position;
+
+        if (playerRb != null)
+        {
+            playerRb.MovePosition(playerRb.position + delta);
+        }
 
         if (Vector3.Distance(transform.position, target.position) < 0.1f)
         {
@@ -27,7 +38,7 @@ public class MovingPlatform : MonoBehaviour
     {
         if (collision.transform.CompareTag("Player"))
         {
-            collision.transform.SetParent(transform);
+            playerRb = collision.rigidbody;
         }
     }
 
@@ -35,7 +46,7 @@ public class MovingPlatform : MonoBehaviour
     {
         if (collision.transform.CompareTag("Player"))
         {
-            collision.transform.SetParent(null);
+            playerRb = null;
         }
     }
 }

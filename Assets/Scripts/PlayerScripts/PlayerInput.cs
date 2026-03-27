@@ -10,6 +10,7 @@ public class PlayerInput : MonoBehaviour
 
     public float moveSpeed = 5f;
     public float jumpForce = 5f;
+    public float rotationSpeed = 0.15f;
 
     private bool canRestart = true;
 
@@ -17,6 +18,7 @@ public class PlayerInput : MonoBehaviour
     private bool isGrounded = true;
 
     public PlayerScript playerScript;
+    public Transform cameraPivot;
 
     public void Awake()
     {
@@ -53,11 +55,21 @@ public class PlayerInput : MonoBehaviour
         playerScript.LoseLife();
     }
 
-    private void Update()
+    void FixedUpdate()
     {
-        if (moveInput != Vector2.zero) 
-        { 
-            Player.Translate(new Vector3(moveInput.x, 0, moveInput.y) * Time.deltaTime * 5.0f); 
+        Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+        if (moveInput.sqrMagnitude > 0.01f)
+        {
+            Vector3 camForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
+            Vector3 camRight = Vector3.Scale(Camera.main.transform.right, new Vector3(1, 0, 1)).normalized;
+
+            Vector3 moveDir = (camForward * moveInput.y + camRight * moveInput.x).normalized;
+
+            rb.MovePosition(rb.position + moveDir * moveSpeed * Time.fixedDeltaTime);
+
+            Quaternion targetRot = Quaternion.LookRotation(moveDir);
+            rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRot, rotationSpeed * Time.fixedDeltaTime));
         }
     }
 
