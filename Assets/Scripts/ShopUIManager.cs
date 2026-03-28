@@ -13,6 +13,8 @@ public class ShopUIManager : MonoBehaviour
     public int item4Price = 25;
     public int item5Price = 10;
 
+    private bool item1Purchased = false;
+
     private void OnEnable()
     {
         UpdateUI();
@@ -28,7 +30,17 @@ public class ShopUIManager : MonoBehaviour
 
     public void BuyItem1()
     {
-        PurchaseItem(item1Price, "Item 1");
+        if (!item1Purchased)
+        {
+            if (PurchaseItem(item1Price, "Item 1"))
+            {
+                item1Purchased = true;
+            }
+        }
+        else
+        {
+            Debug.Log("Item 1 has already been purchased.");
+        }
     }
 
     public void BuyItem2()
@@ -51,17 +63,19 @@ public class ShopUIManager : MonoBehaviour
         PurchaseItem(item5Price, "Item 5");
     }
 
-    private void PurchaseItem(int price, string itemName)
+    private bool PurchaseItem(int price, string itemName)
     {
         if (player.coins >= price)
         {
             player.coins -= price;
             Debug.Log(itemName + " purchased!");
             UpdateUI();
+            return true;
         }
         else
         {
             Debug.Log("Not enough coins to buy " + itemName);
+            return false;
         }
     }
 

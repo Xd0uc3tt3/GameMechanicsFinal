@@ -26,6 +26,9 @@ public class ShopTrigger : MonoBehaviour
     public AudioClip shopCloseSound;
     private AudioSource audioSource;
 
+    public AudioClip shopMusicClip;
+    private AudioSource musicAudioSource;
+
     private Renderer[] playerRenderers;
 
     private void Start()
@@ -36,6 +39,10 @@ public class ShopTrigger : MonoBehaviour
         animatedShopObject.SetActive(false);
 
         audioSource = gameObject.AddComponent<AudioSource>();
+
+        musicAudioSource = gameObject.AddComponent<AudioSource>();
+        musicAudioSource.loop = true;
+        musicAudioSource.playOnAwake = false;
     }
 
     private void Update()
@@ -77,6 +84,7 @@ public class ShopTrigger : MonoBehaviour
             playerInput.ClearShopTrigger();
             SetShopObject(false);
             SetPlayerVisibility(true);
+            playerInput.enabled = true;
         }
     }
 
@@ -89,9 +97,22 @@ public class ShopTrigger : MonoBehaviour
             shopUI.SetActive(isOpen);
             interactPromptUI.SetActive(!isOpen);
             cameraScript.SetCameraLocked(!isOpen);
+
             PlaySound(isOpen ? shopOpenSound : shopCloseSound);
             SetShopObject(isOpen);
             SetPlayerVisibility(!isOpen);
+
+            playerInput.enabled = !isOpen;
+
+            if (isOpen && shopMusicClip != null)
+            {
+                musicAudioSource.clip = shopMusicClip;
+                musicAudioSource.Play();
+            }
+            else
+            {
+                musicAudioSource.Stop();
+            }
         }
     }
 

@@ -3846,6 +3846,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8103313691942873525}
     - target: {fileID: 547559363486690088, guid: f2c2392406c5e724e855dce5047c74b3, type: 3}
+      propertyPath: shopMusicClip
+      value: 
+      objectReference: {fileID: 8300000, guid: cead49ad05d7e4e44ab65dc640755574, type: 3}
+    - target: {fileID: 547559363486690088, guid: f2c2392406c5e724e855dce5047c74b3, type: 3}
       propertyPath: interactPromptUI
       value: 
       objectReference: {fileID: 372784195}
@@ -3900,6 +3904,10 @@ PrefabInstance:
     - target: {fileID: 6131383036639466275, guid: f2c2392406c5e724e855dce5047c74b3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6983719965579361862, guid: f2c2392406c5e724e855dce5047c74b3, type: 3}
+      propertyPath: m_Volume
+      value: 0.701
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
