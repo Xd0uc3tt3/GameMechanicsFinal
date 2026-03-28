@@ -9,6 +9,9 @@ public class ShopUIManager : MonoBehaviour
 
     public int item1Price = 10;
     public int item2Price = 25;
+    public int item3Price = 10;
+    public int item4Price = 25;
+    public int item5Price = 10;
 
     private void OnEnable()
     {
@@ -31,6 +34,21 @@ public class ShopUIManager : MonoBehaviour
     public void BuyItem2()
     {
         PurchaseItem(item2Price, "Item 2");
+    }
+
+    public void BuyItem3()
+    {
+        PurchaseItem(item3Price, "Item 3");
+    }
+
+    public void BuyItem4()
+    {
+        PurchaseItem(item4Price, "Item 4");
+    }
+
+    public void BuyItem5()
+    {
+        PurchaseItem(item5Price, "Item 5");
     }
 
     private void PurchaseItem(int price, string itemName)
