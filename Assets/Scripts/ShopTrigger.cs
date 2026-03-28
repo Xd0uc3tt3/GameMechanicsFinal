@@ -26,6 +26,8 @@ public class ShopTrigger : MonoBehaviour
     public AudioClip shopCloseSound;
     private AudioSource audioSource;
 
+    private Renderer[] playerRenderers;
+
     private void Start()
     {
         playerInput = FindObjectOfType<PlayerInput>();
@@ -58,6 +60,8 @@ public class ShopTrigger : MonoBehaviour
             playerInRange = true;
             interactPromptUI.SetActive(true);
             playerInput.SetShopTrigger(this);
+
+            playerRenderers = other.GetComponentsInChildren<Renderer>();
         }
     }
 
@@ -72,6 +76,7 @@ public class ShopTrigger : MonoBehaviour
             shopCamera.gameObject.SetActive(false);
             playerInput.ClearShopTrigger();
             SetShopObject(false);
+            SetPlayerVisibility(true);
         }
     }
 
@@ -86,6 +91,7 @@ public class ShopTrigger : MonoBehaviour
             cameraScript.SetCameraLocked(!isOpen);
             PlaySound(isOpen ? shopOpenSound : shopCloseSound);
             SetShopObject(isOpen);
+            SetPlayerVisibility(!isOpen);
         }
     }
 
@@ -111,6 +117,16 @@ public class ShopTrigger : MonoBehaviour
             audioSource.clip = clip;
             audioSource.pitch = Random.Range(0.97f, 1.03f);
             audioSource.Play();
+        }
+    }
+
+    private void SetPlayerVisibility(bool visible)
+    {
+        if (playerRenderers == null) return;
+
+        foreach (var rend in playerRenderers)
+        {
+            rend.enabled = visible;
         }
     }
 
