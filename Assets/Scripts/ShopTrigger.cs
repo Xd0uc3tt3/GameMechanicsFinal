@@ -12,12 +12,43 @@ public class ShopTrigger : MonoBehaviour
     public bool PlayerInRange => playerInRange;
 
     public Camera shopCamera;
-
     public CameraScript cameraScript;
+
+    public GameObject animatedShopObject;
+    public Transform startPoint;
+    public Transform endPoint;
+    public float animationSpeed = 5f;
+
+    private bool shopIsOpen = false;
+    private int currentWaypointIndex = 0;
+
+    public AudioClip shopOpenSound;
+    public AudioClip shopCloseSound;
+    private AudioSource audioSource;
 
     private void Start()
     {
         playerInput = FindObjectOfType<PlayerInput>();
+
+        animatedShopObject.transform.position = startPoint.position;
+        animatedShopObject.SetActive(false);
+
+        audioSource = gameObject.AddComponent<AudioSource>();
+    }
+
+    private void Update()
+    {
+        if (animatedShopObject == null || !animatedShopObject.activeSelf) return;
+
+        Vector3 target = shopIsOpen ? endPoint.position : startPoint.position;
+
+        animatedShopObject.transform.position = Vector3.Lerp(animatedShopObject.transform.position, target, Time.deltaTime * animationSpeed);
+
+        if (!shopIsOpen && Vector3.Distance(animatedShopObject.transform.position, startPoint.position) < 0.01f)
+        {
+            animatedShopObject.transform.position = startPoint.position;
+            animatedShopObject.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -40,6 +71,7 @@ public class ShopTrigger : MonoBehaviour
             cameraScript.SetCameraLocked(true);
             shopCamera.gameObject.SetActive(false);
             playerInput.ClearShopTrigger();
+            SetShopObject(false);
         }
     }
 
@@ -49,10 +81,37 @@ public class ShopTrigger : MonoBehaviour
         {
             bool isOpen = !shopUI.activeSelf;
             shopCamera.gameObject.SetActive(isOpen);
-            shopUI.SetActive(!shopUI.activeSelf);
+            shopUI.SetActive(isOpen);
+            interactPromptUI.SetActive(!isOpen);
             cameraScript.SetCameraLocked(!isOpen);
+            PlaySound(isOpen ? shopOpenSound : shopCloseSound);
+            SetShopObject(isOpen);
         }
     }
 
+    private void SetShopObject(bool show)
+    {
+        if (animatedShopObject == null || startPoint == null || endPoint == null)
+        {
+            return;
+        }
+
+        shopIsOpen = show;
+
+        if (show)
+        {
+            animatedShopObject.SetActive(true);
+        }
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        if (clip != null && audioSource != null)
+        {
+            audioSource.clip = clip;
+            audioSource.pitch = Random.Range(0.97f, 1.03f);
+            audioSource.Play();
+        }
+    }
 
 }
