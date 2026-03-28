@@ -13,6 +13,9 @@ public class PlayerScript : MonoBehaviour
     private Rigidbody rb;
     public bool isRespawning = false;
 
+    public AudioSource audioSource;
+    public AudioClip coinSound;
+
     void Start()
     {
         RespawnCoinReward = coins;
@@ -47,7 +50,13 @@ public class PlayerScript : MonoBehaviour
         if (other.CompareTag("Coin"))
         {
             coins += 1;
-            Destroy(other.gameObject);
+            PlaySound(coinSound);
+
+            CoinSpin coin = other.GetComponent<CoinSpin>();
+            if (coin != null)
+            {
+                coin.Collect(transform);
+            }
         }
 
         if (other.CompareTag("TestHazard"))
@@ -81,5 +90,14 @@ public class PlayerScript : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         isRespawning = false;
+    }
+
+    void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.pitch = Random.Range(0.97f, 1.03f);
+            audioSource.PlayOneShot(clip);
+        }
     }
 }
