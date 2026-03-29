@@ -11,6 +11,7 @@ public class BouncePad : MonoBehaviour
     public TextMeshPro costText;
 
     private PlayerScript player;
+    private PlayerInput playerInput;
 
     void Start()
     {
@@ -27,13 +28,14 @@ public class BouncePad : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            player = other.GetComponent<PlayerScript>();
+            PlayerScript player = other.GetComponent<PlayerScript>();
+            PlayerInput playerInput = other.GetComponent<PlayerInput>();
 
             if (player.coins >= cost)
             {
                 player.coins -= cost;
                 player.audioSource.PlayOneShot(spendSound);
-                Launch(other.GetComponent<Rigidbody>());
+                Launch(other.GetComponent<Rigidbody>(), playerInput);
             }
             else
             {
@@ -42,10 +44,11 @@ public class BouncePad : MonoBehaviour
         }
     }
 
-    void Launch(Rigidbody rb)
+    void Launch(Rigidbody rb, PlayerInput playerInput)
     {
         rb.linearVelocity = Vector3.zero;
         rb.AddForce(transform.up * launchForce, ForceMode.Impulse);
         rb.GetComponent<PlayerInput>().isGrounded = false;
+        playerInput.jumpCount = 1;
     }
 }
