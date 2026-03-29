@@ -34,6 +34,11 @@ public class PlayerInput : MonoBehaviour
     public PlayerScript playerScript;
     public Transform cameraPivot;
 
+    public AudioClip jumpSound;
+    public AudioClip DashSound;
+    public AudioClip failSound;
+    public AudioClip RestartSound;
+
     private ShopTrigger currentShopTrigger;
 
 
@@ -67,6 +72,7 @@ public class PlayerInput : MonoBehaviour
         Vector3 dashDirection;
         if (moveInput.sqrMagnitude > 0.01f)
         {
+            playerScript.audioSource.PlayOneShot(DashSound);
             Vector3 camForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
             Vector3 camRight = Vector3.Scale(Camera.main.transform.right, new Vector3(1, 0, 1)).normalized;
             dashDirection = (camForward * moveInput.y + camRight * moveInput.x).normalized;
@@ -92,16 +98,19 @@ public class PlayerInput : MonoBehaviour
         {
             if (playerScript.coins <= 0)
             {
+                playerScript.audioSource.PlayOneShot(failSound);
                 return;
             }
 
             playerScript.coins--;
+            playerScript.audioSource.PlayOneShot(jumpSound);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
             jumpCount = 1;
         }
         else if (hasDoubleJump && jumpCount == 1)
         {
+            playerScript.audioSource.PlayOneShot(jumpSound);
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             jumpCount = 2;
@@ -117,9 +126,11 @@ public class PlayerInput : MonoBehaviour
 
         if (playerScript.lives <= 0 || playerScript.isRespawning)
         {
+            playerScript.audioSource.PlayOneShot(failSound);
             return;
         }
 
+        playerScript.audioSource.PlayOneShot(RestartSound);
         playerScript.coins += playerScript.RespawnCoinReward;
         playerScript.LoseLife();
     }
