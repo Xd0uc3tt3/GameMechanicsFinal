@@ -9,12 +9,13 @@ public class ShopUIManager : MonoBehaviour
     public TMP_Text coinsText;
 
     public int item1Price = 10;
-    public int item2Price = 25;
+    public int item2Price = 10;
     public int item3Price = 10;
     public int item4Price = 25;
     public int item5Price = 10;
 
     private bool item1Purchased = false;
+    private bool item2Purchased = false;
 
     public AudioSource audioSource;
 
@@ -53,7 +54,19 @@ public class ShopUIManager : MonoBehaviour
 
     public void BuyItem2()
     {
-        PurchaseItem(item2Price, "Item 2");
+        if (!item2Purchased)
+        {
+            if (PurchaseItem(item2Price, "Item 2"))
+            {
+                item2Purchased = true;
+                playerInput.hasDash = true;
+            }
+        }
+        else
+        {
+            audioSource.PlayOneShot(purchaseFailSound);
+            Debug.Log("Item 2 has already been purchased.");
+        }
     }
 
     public void BuyItem3()
