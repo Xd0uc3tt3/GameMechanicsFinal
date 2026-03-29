@@ -11,7 +11,6 @@ public class CameraScript : MonoBehaviour
 
     private float x = 0f;
     private float y = 0f;
-
     private bool isLocked = true;
 
     void Start()
@@ -41,7 +40,6 @@ public class CameraScript : MonoBehaviour
             y = Mathf.Clamp(y, yMinLimit, yMaxLimit);
 
             Quaternion rotation = Quaternion.Euler(y, x, 0);
-
             Vector3 position = player.position - (rotation * Vector3.forward * distance);
 
             transform.rotation = rotation;

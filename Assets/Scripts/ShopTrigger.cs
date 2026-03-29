@@ -84,7 +84,6 @@ public class ShopTrigger : MonoBehaviour
             playerInput.ClearShopTrigger();
             SetShopObject(false);
             SetPlayerVisibility(true);
-            playerInput.enabled = true;
         }
     }
 
@@ -101,8 +100,6 @@ public class ShopTrigger : MonoBehaviour
             PlaySound(isOpen ? shopOpenSound : shopCloseSound);
             SetShopObject(isOpen);
             SetPlayerVisibility(!isOpen);
-
-            playerInput.enabled = !isOpen;
 
             if (isOpen && shopMusicClip != null)
             {
@@ -127,6 +124,7 @@ public class ShopTrigger : MonoBehaviour
 
         if (show)
         {
+            animatedShopObject.transform.position = startPoint.position;
             animatedShopObject.SetActive(true);
         }
     }

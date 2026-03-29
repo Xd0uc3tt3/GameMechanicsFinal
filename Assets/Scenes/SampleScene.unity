@@ -665,6 +665,9 @@ MonoBehaviour:
   item3Price: 10
   item4Price: 25
   item5Price: 10
+  audioSource: {fileID: 984615573}
+  purchaseSuccessSound: {fileID: 8300000, guid: 6fefbd85a7471b048a3f557f5803975b, type: 3}
+  purchaseFailSound: {fileID: 8300000, guid: 816b40ef9e342ab4f83a3db747bcdf4d, type: 3}
 --- !u!1 &508491506
 GameObject:
   m_ObjectHideFlags: 0
@@ -1534,6 +1537,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 927451524}
   m_CullTransparentMesh: 1
+--- !u!82 &984615573 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6983719965579361862, guid: f2c2392406c5e724e855dce5047c74b3, type: 3}
+  m_PrefabInstance: {fileID: 541737767539105756}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1075628004
 GameObject:
   m_ObjectHideFlags: 0
@@ -3848,7 +3856,7 @@ PrefabInstance:
     - target: {fileID: 547559363486690088, guid: f2c2392406c5e724e855dce5047c74b3, type: 3}
       propertyPath: shopMusicClip
       value: 
-      objectReference: {fileID: 8300000, guid: cead49ad05d7e4e44ab65dc640755574, type: 3}
+      objectReference: {fileID: 8300000, guid: dae3f00bca5c41f4e8555a610f8b7d82, type: 3}
     - target: {fileID: 547559363486690088, guid: f2c2392406c5e724e855dce5047c74b3, type: 3}
       propertyPath: interactPromptUI
       value: 

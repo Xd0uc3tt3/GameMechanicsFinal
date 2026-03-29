@@ -15,6 +15,11 @@ public class ShopUIManager : MonoBehaviour
 
     private bool item1Purchased = false;
 
+    public AudioSource audioSource;
+
+    public AudioClip purchaseSuccessSound;
+    public AudioClip purchaseFailSound;
+
     private void OnEnable()
     {
         UpdateUI();
@@ -39,6 +44,7 @@ public class ShopUIManager : MonoBehaviour
         }
         else
         {
+            audioSource.PlayOneShot(purchaseFailSound);
             Debug.Log("Item 1 has already been purchased.");
         }
     }
@@ -69,12 +75,14 @@ public class ShopUIManager : MonoBehaviour
         {
             player.coins -= price;
             Debug.Log(itemName + " purchased!");
+            audioSource.PlayOneShot(purchaseSuccessSound);
             UpdateUI();
             return true;
         }
         else
         {
             Debug.Log("Not enough coins to buy " + itemName);
+            audioSource.PlayOneShot(purchaseFailSound);
             return false;
         }
     }
