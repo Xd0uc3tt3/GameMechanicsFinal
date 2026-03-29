@@ -1,9 +1,11 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
     public Transform spawnPoint;
+    public CameraScript cameraScript;
 
     public int coins = 0;
     public int lives = 3;
@@ -81,8 +83,9 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            Debug.Log("Game Over");
             isRespawning = false;
+            cameraScript.SetCameraLocked(false);
+            SceneManager.LoadScene("GameOver");
         }
     }
 

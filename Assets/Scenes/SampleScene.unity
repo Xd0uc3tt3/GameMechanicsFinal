@@ -4467,6 +4467,10 @@ PrefabInstance:
       propertyPath: spawnPoint
       value: 
       objectReference: {fileID: 88813129}
+    - target: {fileID: 249371831072837356, guid: c13f42a28ef8e544ba3d25ad2b1ef6c3, type: 3}
+      propertyPath: cameraScript
+      value: 
+      objectReference: {fileID: 8103313691942873525}
     - target: {fileID: 4151758923467083155, guid: c13f42a28ef8e544ba3d25ad2b1ef6c3, type: 3}
       propertyPath: m_Name
       value: Player
