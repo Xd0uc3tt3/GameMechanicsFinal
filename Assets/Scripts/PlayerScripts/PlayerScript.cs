@@ -92,7 +92,7 @@ public class PlayerScript : MonoBehaviour
         isRespawning = false;
     }
 
-    void PlaySound(AudioClip clip)
+    public void PlaySound(AudioClip clip)
     {
         if (audioSource != null && clip != null)
         {
