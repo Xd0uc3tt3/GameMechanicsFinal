@@ -12,10 +12,15 @@ public class PlayerInput : MonoBehaviour
     public float jumpForce = 5f;
     public float rotationSpeed = 0.15f;
 
+    private int jumpCount = 0;
+    private const int maxJumps = 2;
+
+    public bool hasDoubleJump = false;
+
     private bool canRestart = true;
 
     private Rigidbody rb;
-    private bool isGrounded = true;
+    public bool isGrounded = true;
 
     public PlayerScript playerScript;
     public Transform cameraPivot;
@@ -34,16 +39,28 @@ public class PlayerInput : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (playerScript.coins <= 0)
-        {
-            return;
+        if (!context.performed) 
+        { 
+            return; 
         }
 
         if (isGrounded)
         {
+            if (playerScript.coins <= 0)
+            {
+                return;
+            }
+
             playerScript.coins--;
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
+            jumpCount = 1;
+        }
+        else if (hasDoubleJump && jumpCount == 1)
+        {
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            jumpCount = 2;
         }
     }
 
@@ -99,6 +116,7 @@ public class PlayerInput : MonoBehaviour
         if (collision.contacts[0].normal.y > 0.5f)
         {
             isGrounded = true;
+            jumpCount = 0;
         }
     }
 

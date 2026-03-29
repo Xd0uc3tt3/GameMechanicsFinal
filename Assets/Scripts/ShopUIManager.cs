@@ -4,6 +4,7 @@ using TMPro;
 public class ShopUIManager : MonoBehaviour
 {
     public PlayerScript player;
+    public PlayerInput playerInput;
 
     public TMP_Text coinsText;
 
@@ -40,6 +41,7 @@ public class ShopUIManager : MonoBehaviour
             if (PurchaseItem(item1Price, "Item 1"))
             {
                 item1Purchased = true;
+                playerInput.hasDoubleJump = true;
             }
         }
         else

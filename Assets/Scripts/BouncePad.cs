@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class BouncePad : MonoBehaviour
 {
@@ -7,8 +8,20 @@ public class BouncePad : MonoBehaviour
 
     public AudioClip spendSound;
     public AudioClip failSound;
+    public TextMeshPro costText;
 
     private PlayerScript player;
+
+    void Start()
+    {
+        costText.text = $"Price: {cost}";
+    }
+
+    void Update()
+    {
+        costText.transform.LookAt(Camera.main.transform);
+        costText.transform.Rotate(0, 180, 0);
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -20,19 +33,19 @@ public class BouncePad : MonoBehaviour
             {
                 player.coins -= cost;
                 player.audioSource.PlayOneShot(spendSound);
-                Launch(other);
+                Launch(other.GetComponent<Rigidbody>());
             }
             else
             {
-                //player.audioSource.PlayOneShot(failSound);
+                player.audioSource.PlayOneShot(failSound);
             }
         }
     }
 
-    void Launch(Collider player)
+    void Launch(Rigidbody rb)
     {
-        Rigidbody rb = player.GetComponent<Rigidbody>();
-        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-        rb.AddForce(Vector3.up * launchForce, ForceMode.Impulse);
+        rb.linearVelocity = Vector3.zero;
+        rb.AddForce(transform.up * launchForce, ForceMode.Impulse);
+        rb.GetComponent<PlayerInput>().isGrounded = false;
     }
 }
