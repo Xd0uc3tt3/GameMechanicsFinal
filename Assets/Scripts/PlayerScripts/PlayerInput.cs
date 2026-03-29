@@ -49,23 +49,34 @@ public class PlayerInput : MonoBehaviour
 
     public void OnDash(InputAction.CallbackContext context)
     {
-        if (!context.performed) return;
-        if (!hasDash) return;
-        if (isDashing || dashCooldownTimer > 0f) return;
+        if (!context.performed)
+        {
+            return;
+        }
 
-        Vector3 dashDir;
+        if (!hasDash)
+        {
+            return;
+        }
+
+        if (isDashing || dashCooldownTimer > 0f)
+        {
+            return;
+        }
+
+        Vector3 dashDirection;
         if (moveInput.sqrMagnitude > 0.01f)
         {
             Vector3 camForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
             Vector3 camRight = Vector3.Scale(Camera.main.transform.right, new Vector3(1, 0, 1)).normalized;
-            dashDir = (camForward * moveInput.y + camRight * moveInput.x).normalized;
+            dashDirection = (camForward * moveInput.y + camRight * moveInput.x).normalized;
         }
         else
         {
-            dashDir = Player.forward;
+            dashDirection = Player.forward;
         }
 
-        rb.linearVelocity = new Vector3(dashDir.x * dashForce, rb.linearVelocity.y, dashDir.z * dashForce);
+        rb.linearVelocity = new Vector3(dashDirection.x * dashForce, rb.linearVelocity.y, dashDirection.z * dashForce);
         isDashing = true;
         dashTimer = dashDuration;
     }
@@ -150,12 +161,12 @@ public class PlayerInput : MonoBehaviour
             Vector3 camForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
             Vector3 camRight = Vector3.Scale(Camera.main.transform.right, new Vector3(1, 0, 1)).normalized;
 
-            Vector3 moveDir = (camForward * moveInput.y + camRight * moveInput.x).normalized;
+            Vector3 moveDirection = (camForward * moveInput.y + camRight * moveInput.x).normalized;
 
-            rb.MovePosition(rb.position + moveDir * moveSpeed * Time.fixedDeltaTime);
+            rb.MovePosition(rb.position + moveDirection * moveSpeed * Time.fixedDeltaTime);
 
-            Quaternion targetRot = Quaternion.LookRotation(moveDir);
-            rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRot, rotationSpeed * Time.fixedDeltaTime));
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+            rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime));
         }
     }
 
