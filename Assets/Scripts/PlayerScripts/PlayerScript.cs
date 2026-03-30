@@ -95,6 +95,11 @@ public class PlayerScript : MonoBehaviour
         isRespawning = false;
     }
 
+    public void SetCheckpoint(Transform checkpoint)
+    {
+        spawnPoint = checkpoint;
+    }
+
     public void PlaySound(AudioClip clip)
     {
         if (audioSource != null && clip != null)
