@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 
 public class UIManager : MonoBehaviour
@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        coinText.text = "Coins: " + player.coins;
-        livesText.text = "Lives: " + player.lives;
+        coinText.text = "x " + player.coins;
+        livesText.text = "x " + player.lives;
     }
 }

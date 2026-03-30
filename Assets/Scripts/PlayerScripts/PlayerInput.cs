@@ -37,7 +37,12 @@ public class PlayerInput : MonoBehaviour
     public AudioClip jumpSound;
     public AudioClip DashSound;
     public AudioClip failSound;
+    public AudioClip RestartHoldSound;
     public AudioClip RestartSound;
+
+    private float restartHoldTimer = 0f;
+    private const float restartHoldDuration = 7.5f;
+    private bool isHoldingRestart = false;
 
     private ShopTrigger currentShopTrigger;
 
@@ -119,20 +124,23 @@ public class PlayerInput : MonoBehaviour
 
     public void OnRestart(InputAction.CallbackContext context)
     {
-        if (!context.started)
+        if (context.started)
         {
-            return;
-        }
+            if (playerScript.isRespawning)
+            {
+                return;
+            }
 
-        if (playerScript.lives <= 0 || playerScript.isRespawning)
+            isHoldingRestart = true;
+            restartHoldTimer = 0f;
+            playerScript.audioSource.PlayOneShot(RestartHoldSound);
+        }
+        else if (context.canceled)
         {
-            playerScript.audioSource.PlayOneShot(failSound);
-            return;
+            isHoldingRestart = false;
+            restartHoldTimer = 0f;
+            playerScript.audioSource.Stop();
         }
-
-        playerScript.audioSource.PlayOneShot(RestartSound);
-        playerScript.coins += playerScript.RespawnCoinReward;
-        playerScript.LoseLife();
     }
 
     public void OnInteract(InputAction.CallbackContext context)
@@ -187,6 +195,24 @@ public class PlayerInput : MonoBehaviour
         {
             isGrounded = true;
             jumpCount = 0;
+        }
+    }
+
+    void Update()
+    {
+        if (isHoldingRestart)
+        {
+            restartHoldTimer += Time.deltaTime;
+
+            if (restartHoldTimer >= restartHoldDuration)
+            {
+                isHoldingRestart = false;
+                restartHoldTimer = 0f;
+                playerScript.audioSource.Stop();
+                playerScript.audioSource.PlayOneShot(RestartSound);
+                playerScript.coins += playerScript.RespawnCoinReward;
+                playerScript.LoseLife();
+            }
         }
     }
 
