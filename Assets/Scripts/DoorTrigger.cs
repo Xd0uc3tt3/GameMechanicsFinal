@@ -10,10 +10,16 @@ public class DoorTrigger : MonoBehaviour
     private Vector3 openPos;
     private bool isOpen = false;
 
+    public AudioClip doorSound;
+    private AudioSource audioSource;
+
     void Start()
     {
         closedPos = door.position;
         openPos = closedPos + openOffset;
+
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = doorSound;
     }
 
     void Update()
@@ -33,6 +39,7 @@ public class DoorTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isOpen = true;
+            PlaySound(forward: true);
         }
     }
 
@@ -41,6 +48,31 @@ public class DoorTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isOpen = false;
+            PlaySound(forward: false);
+        }
+    }
+
+    void PlaySound(bool forward)
+    {
+        if (doorSound == null) return;
+
+        if (forward)
+        {
+            audioSource.pitch = 1f;
+            if (!audioSource.isPlaying)
+            {
+                audioSource.time = 0f;
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            audioSource.pitch = -1f;
+            if (!audioSource.isPlaying)
+            {
+                audioSource.time = doorSound.length - 0.01f;
+                audioSource.Play();
+            }
         }
     }
 }

@@ -8,8 +8,8 @@ public class ShopUIManager : MonoBehaviour
 
     public TMP_Text coinsText;
 
-    public int item1Price = 10;
-    public int item2Price = 10;
+    public int item1Price = 8;
+    public int item2Price = 8;
     public int item3Price = 10;
     public int item4Price = 25;
     public int item5Price = 10;
