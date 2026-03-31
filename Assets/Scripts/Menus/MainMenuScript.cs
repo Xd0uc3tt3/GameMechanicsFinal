@@ -7,4 +7,9 @@ public class MainMenuScript : MonoBehaviour
     {
         SceneManager.LoadScene("Tutorial");
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }

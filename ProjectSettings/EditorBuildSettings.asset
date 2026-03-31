@@ -12,14 +12,14 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels/Tutorial.unity
     guid: 20be448bd85a3d44ab0ab777cade428b
   - enabled: 1
+    path: Assets/Scenes/Levels/LevelOne.unity
+    guid: de5c242730f67564584133dbf51f5f94
+  - enabled: 1
     path: Assets/Scenes/Menus/GameOver.unity
     guid: 5ad78ad4d2da1544f96daade27c9b706
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 0
-    path: Assets/Scenes/Levels/TutorialLevel.unity
-    guid: 9ccc253d56d68d949b21faa0d8b231e8
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
