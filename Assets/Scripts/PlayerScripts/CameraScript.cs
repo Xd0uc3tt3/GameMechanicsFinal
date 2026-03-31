@@ -32,6 +32,11 @@ public class CameraScript : MonoBehaviour
 
     void LateUpdate()
     {
+        if (PauseMenu.IsPaused)
+        {
+            return;
+        }
+
         if (player)
         {
             x += Input.GetAxis("Mouse X") * xSpeed * Time.deltaTime;

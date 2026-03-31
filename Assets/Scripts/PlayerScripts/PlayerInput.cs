@@ -45,6 +45,7 @@ public class PlayerInput : MonoBehaviour
     private bool isHoldingRestart = false;
 
     private ShopTrigger currentShopTrigger;
+    public PauseMenu pauseMenu;
 
 
     public void Awake()
@@ -154,6 +155,16 @@ public class PlayerInput : MonoBehaviour
         {
             currentShopTrigger.ToggleShop();
         }
+    }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+        {
+            return;
+        }
+
+        pauseMenu.TogglePause();
     }
 
     void FixedUpdate()
