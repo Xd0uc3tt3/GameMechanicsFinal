@@ -48,7 +48,7 @@ public class BouncePad : MonoBehaviour
     {
         rb.linearVelocity = Vector3.zero;
         rb.AddForce(transform.up * launchForce, ForceMode.Impulse);
-        rb.GetComponent<PlayerInput>().isGrounded = false;
+        playerInput.isGrounded = false;
         playerInput.jumpCount = 1;
     }
 }

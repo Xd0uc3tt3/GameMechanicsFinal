@@ -95,9 +95,9 @@ public class PlayerInput : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (!context.performed) 
-        { 
-            return; 
+        if (!context.performed)
+        {
+            return;
         }
 
         if (isGrounded)
@@ -202,7 +202,7 @@ public class PlayerInput : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.contacts[0].normal.y > 0.5f)
+        if (collision.contacts[0].normal.y > 0.5f && !collision.gameObject.CompareTag("BouncePadBase"))
         {
             isGrounded = true;
             jumpCount = 0;
