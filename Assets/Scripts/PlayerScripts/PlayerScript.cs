@@ -18,6 +18,8 @@ public class PlayerScript : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip coinSound;
 
+    public PlayerInput playerInput;
+
     void Start()
     {
         RespawnCoinReward = coins;
@@ -43,6 +45,9 @@ public class PlayerScript : MonoBehaviour
                 rb.angularVelocity = Vector3.zero;
             }
         }
+
+        coins = RespawnCoinReward;
+        playerInput.ResetPowerups();
 
         StartCoroutine(EndRespawnFrame());
     }

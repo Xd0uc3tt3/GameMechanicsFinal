@@ -242,4 +242,13 @@ public class PlayerInput : MonoBehaviour
         currentShopTrigger = null;
     }
 
+    public void ResetPowerups()
+    {
+        hasDoubleJump = false;
+        hasDash = false;
+
+        jumpCount = 0;
+        isDashing = false;
+    }
+
 }
