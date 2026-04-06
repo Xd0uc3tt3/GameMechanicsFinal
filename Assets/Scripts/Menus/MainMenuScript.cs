@@ -5,6 +5,12 @@ public class MainMenuScript : MonoBehaviour
 {
     public GameObject LevelSelect;
 
+    public void Awake()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
     public void LoadLevelSelect()
     {
         LevelSelect.SetActive(true);
