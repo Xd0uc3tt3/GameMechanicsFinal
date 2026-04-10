@@ -5908,7 +5908,7 @@ PrefabInstance:
     - target: {fileID: 2150782720658230218, guid: f2c2392406c5e724e855dce5047c74b3, type: 3}
       propertyPath: shopUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 126276628}
     - target: {fileID: 2150782720658230218, guid: f2c2392406c5e724e855dce5047c74b3, type: 3}
       propertyPath: cameraScript
       value: 
@@ -5916,7 +5916,7 @@ PrefabInstance:
     - target: {fileID: 2150782720658230218, guid: f2c2392406c5e724e855dce5047c74b3, type: 3}
       propertyPath: interactPromptUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 276644728}
     - target: {fileID: 3599752463606597066, guid: f2c2392406c5e724e855dce5047c74b3, type: 3}
       propertyPath: m_Name
       value: Shop
